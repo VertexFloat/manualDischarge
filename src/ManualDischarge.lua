@@ -1,147 +1,126 @@
 -- Author: VertexFloat
--- Date: 05.04.2022
--- Version: Farming Simulator 22, 1.0.0.0
+-- Date: 18.07.2022
+-- Version: Farming Simulator 22, 1.0.0.1
 -- Copyright (C): VertexFloat, All Rights Reserved
 -- Handling all functions of Manual Discharge
 
-local settingsDirectory = g_currentModSettingsDirectory
+-- Changelog (1.0.0.1) :
+--
+-- completly new, better and cleaner code
+-- merged functionality with 'main' file
 
 ManualDischarge = {
-	SETTINGS = {
-		HARVESTERS = true,
-		AUGER_WAGONS = true
-	}
+    MOD_NAME = g_currentModName,
+    MOD_DIRECTORY = g_currentModDirectory,
+    MOD_SETTINGS_DIRECTORY = g_modSettingsDirectory
 }
+
+source(ManualDischarge.MOD_DIRECTORY .. "src/vehicles/specializations/events/SetManualPipeDischargeStateEvent.lua")
+source(ManualDischarge.MOD_DIRECTORY .. "src/events/ManualDischargeSettingsEvent.lua")
+source(ManualDischarge.MOD_DIRECTORY .. "src/misc/AdditionalSpecialization.lua")
+source(ManualDischarge.MOD_DIRECTORY .. "src/gui/ManualDischargeSettings.lua")
+source(ManualDischarge.MOD_DIRECTORY .. "src/gui/hud/ManualDischargeHUD.lua")
+source(ManualDischarge.MOD_DIRECTORY .. "src/utils/ManualDischargeUtil.lua")
 
 local ManualDischarge_mt = Class(ManualDischarge)
 
-function ManualDischarge.new(mission, inputDisplayManager, contextActionDisplay)
-	local self = setmetatable({}, ManualDischarge_mt)
-	
-	self.manualDischargeHUD = ManualDischargeHUD.new(mission, inputDisplayManager, contextActionDisplay)
-	
-	self.isCreated = false
-	
-	return self
+function ManualDischarge.new(customMt)
+    local self = setmetatable({}, customMt or ManualDischarge_mt)
+
+    self.isHarvestersDischargeManually = false
+    self.isPotatoHarvestersDischargeManually = false
+    self.isBeetHarvestersDischargeManually = false
+    self.isAugerWagonsDischargeManually = false
+
+    self.manualDischargeSettings = ManualDischargeSettings.new()
+
+    return self
 end
 
-function ManualDischarge:createSettingsElements()
-	if not self.isCreated then
-		local titleElement = TextElement.new()
-		
-		titleElement:applyProfile("settingsMenuSubtitle", true)
-		titleElement:setText(g_i18n:getText("title_manualDischargeTitle"))
-		
-		local cElement = self.checkStopAndGoBraking:clone()
-		local valueC, valueA = ManualDischarge:loadSettingsValueFromXMLFile()
-		
-		cElement.elements[4]:setText(g_i18n:getText("setting_manualCombineDischarge"))
-		cElement.elements[6]:setText(g_i18n:getText("tip_manualCombineDischarge"))
-		
-		if valueC ~= nil then
-			cElement:setIsChecked(valueC)
-		else
-			cElement:setIsChecked(ManualDischarge.SETTINGS.HARVESTERS)
-		end
-		
-		cElement.onClickCallback = function(obj, state)
-			ManualDischarge:setSettingsValue(0, state == CheckedOptionElement.STATE_CHECKED)
-		end
-		
-		local aElement = cElement:clone()
-		
-		aElement.elements[4]:setText(g_i18n:getText("setting_manualAugerWagonDischarge"))
-		aElement.elements[6]:setText(g_i18n:getText("tip_manualAugerWagonDischarge"))
-		
-		if valueA ~= nil then
-			aElement:setIsChecked(valueC)
-		else
-			aElement:setIsChecked(ManualDischarge.SETTINGS.AUGER_WAGONS)
-		end
-		
-		aElement.onClickCallback = function(obj, state)
-			ManualDischarge:setSettingsValue(1, state == CheckedOptionElement.STATE_CHECKED)
-		end
-		
-		self.boxLayout:addElement(titleElement)
-		self.boxLayout:addElement(cElement)
-		self.boxLayout:addElement(aElement)
-		
-		self.isCreated = true
-	end
+function ManualDischarge:initialize()
+    ManualDischargeUtil.deleteOldModFiles(ManualDischarge.MOD_NAME, ManualDischarge.MOD_SETTINGS_DIRECTORY)
+    ManualDischargeUtil.overwriteEnvTableElement("ContextActionDisplay", ManualDischargeHUD)
+
+    self.manualDischargeSettings:addSetting("isHarvestersDischargeManually", g_i18n:getText("setting_manualDischargeHarvesters"), g_i18n:getText("setting_info_manualDischargeHarvesters"), self.manualDischargeSettings.onClickIsHarvestersDischargeManually, self, true)
+    self.manualDischargeSettings:addSetting("isPotatoHarvestersDischargeManually", g_i18n:getText("setting_manualDischargePotatoHarvesters"), g_i18n:getText("setting_info_manualDischargePotatoHarvesters"), self.manualDischargeSettings.onClickIsPotatoHarvestersDischargeManually, self, true)
+    self.manualDischargeSettings:addSetting("isBeetHarvestersDischargeManually", g_i18n:getText("setting_manualDischargeBeetHarvesters"), g_i18n:getText("setting_info_manualDischargeBeetHarvesters"), self.manualDischargeSettings.onClickIsBeetHarvestersDischargeManually, self, true)
+    self.manualDischargeSettings:addSetting("isAugerWagonsDischargeManually", g_i18n:getText("setting_manualDischargeAugerWagons"), g_i18n:getText("setting_info_manualDischargeAugerWagons"), self.manualDischargeSettings.onClickIsAugerWagonsDischargeManually, self, true)
+    self.manualDischargeSettings:overwriteGameFunctions()
 end
 
-function ManualDischarge:loadSettingsValueFromXMLFile()
-	local xmlFilename = settingsDirectory .. "ManualDischargeSettings.xml"
-	local xmlFile = XMLFile.loadIfExists("manualDischargeXML", xmlFilename, "manualDischargeSettings")
-	
-	if xmlFile == nil then
-		return
-	end
-	
-	local valueC = xmlFile:getBool("manualDischargeSettings.combineHarvesters", valueC)
-	local valueA = xmlFile:getBool("manualDischargeSettings.augerWagons", valueA)
-	
-	xmlFile:delete()
-	
-	return valueC, valueA
+function ManualDischarge:loadMap(filename)
+    self.manualDischargeSettings:initializeSettingsStates()
 end
 
-function ManualDischarge:saveSettingsValueToXMLFile()
-	local xmlFilename = settingsDirectory .. "ManualDischargeSettings.xml"
-	local xmlFile = XMLFile.create("manualDischargeXML", xmlFilename, "manualDischargeSettings")
-	
-	if xmlFile == nil then
-		return
-	end
-	
-	xmlFile:setBool("manualDischargeSettings.combineHarvesters", ManualDischarge.SETTINGS.HARVESTERS)
-	xmlFile:setBool("manualDischargeSettings.augerWagons", ManualDischarge.SETTINGS.AUGER_WAGONS)
-	xmlFile:save()
-	xmlFile:delete()
-	
-	return true
+function ManualDischarge:setIsHarvestersDischargeManually(isManually, noEventSend)
+    if self.isHarvestersDischargeManually ~= isManually then
+        self.isHarvestersDischargeManually = isManually
+
+        ManualDischargeSettingsEvent.sendEvent(noEventSend)
+
+        Logging.info("Manual Discharge Settings 'isHarvestersDischargeManually': %s", isManually)
+    end
 end
 
-function ManualDischarge:onFrameClose()
-	ManualDischarge:saveSettingsValueToXMLFile()
+function ManualDischarge:setIsAugerWagonsDischargeManually(isManually, noEventSend)
+    if self.isAugerWagonsDischargeManually ~= isManually then
+        self.isAugerWagonsDischargeManually = isManually
+
+        ManualDischargeSettingsEvent.sendEvent(noEventSend)
+
+        Logging.info("Manual Discharge Settings 'isAugerWagonsDischargeManually': %s", isManually)
+    end
 end
 
-function ManualDischarge:saveToXMLFile()
-	ManualDischarge:saveSettingsValueToXMLFile()
+function ManualDischarge:setIsPotatoHarvestersDischargeManually(isManually, noEventSend)
+    if self.isPotatoHarvestersDischargeManually ~= isManually then
+        self.isPotatoHarvestersDischargeManually = isManually
+
+        ManualDischargeSettingsEvent.sendEvent(noEventSend)
+
+        Logging.info("Manual Discharge Settings 'isPotatoHarvestersDischargeManually': %s", isManually)
+    end
 end
 
-function ManualDischarge:setSettingsValue(option, value)
-	if option == nil then
-		option = 0
-	end
-	
-	if option == 0 then
-		ManualDischarge.SETTINGS.HARVESTERS = value
-	elseif option == 1 then
-		ManualDischarge.SETTINGS.AUGER_WAGONS = value
-	end
+function ManualDischarge:setIsBeetHarvestersDischargeManually(isManually, noEventSend)
+    if self.isBeetHarvestersDischargeManually ~= isManually then
+        self.isBeetHarvestersDischargeManually = isManually
+
+        ManualDischargeSettingsEvent.sendEvent(noEventSend)
+
+        Logging.info("Manual Discharge Settings 'isBeetHarvestersDischargeManually': %s", isManually)
+    end
 end
 
-function ManualDischarge:getSettingsValue(harvesters, augerWagons)
-	if not harvesters == augerWagons then
-		if harvesters == true then
-			return ManualDischarge.SETTINGS.HARVESTERS
-		end
-		if augerWagons == true then
-			return ManualDischarge.SETTINGS.AUGER_WAGONS
-		end
-	end
+function ManualDischarge:showPipeDischargeContext(fillTypeIndex)
+    local fillType = g_fillTypeManager:getFillTypeByIndex(fillTypeIndex)
+
+    g_currentMission.hud.contextActionDisplay:setContext(InputAction.TOGGLE_MANUAL_DISCHARGE_PIPE, ContextActionDisplay.CONTEXT_ICON.PIPE_DISCHARGE, fillType.title, HUD.CONTEXT_PRIORITY.MEDIUM)
 end
 
-function ManualDischarge:showCombineDischargeContext(fillTypeIndex)
-	local fillType = g_fillTypeManager:getFillTypeByIndex(fillTypeIndex)
-	
-	self.manualDischargeHUD:showCombineDischargeContext(fillType.title)
+function ManualDischarge:onStartMission()
+    Logging.info("Manual Discharge Settings 'isHarvestersDischargeManually': %s", g_manualDischarge.isHarvestersDischargeManually)
+    Logging.info("Manual Discharge Settings 'isAugerWagonsDischargeManually': %s", g_manualDischarge.isAugerWagonsDischargeManually)
+    Logging.info("Manual Discharge Settings 'isPotatoHarvestersDischargeManually': %s", g_manualDischarge.isPotatoHarvestersDischargeManually)
+    Logging.info("Manual Discharge Settings 'isBeetHarvestersDischargeManually': %s", g_manualDischarge.isBeetHarvestersDischargeManually)
 end
 
-function ManualDischarge:showAugerWagonDischargeContext(fillTypeIndex)
-	local fillType = g_fillTypeManager:getFillTypeByIndex(fillTypeIndex)
-	
-	self.manualDischargeHUD:showAugerWagonDischargeContext(fillType.title)
+FSBaseMission.onStartMission = Utils.appendedFunction(FSBaseMission.onStartMission, ManualDischarge.onStartMission)
+
+function ManualDischarge:onConnectionFinishedLoading(connection)
+    connection:sendEvent(ManualDischargeSettingsEvent.new())
+end 
+
+FSBaseMission.onConnectionFinishedLoading = Utils.appendedFunction(FSBaseMission.onConnectionFinishedLoading, ManualDischarge.onConnectionFinishedLoading)
+
+g_manualDischarge = ManualDischarge.new()
+
+addModEventListener(g_manualDischarge)
+
+local function validateTypes(self)
+    if self.typeName == "vehicle" and g_modIsLoaded[ManualDischarge.MOD_NAME] then
+        g_manualDischarge:initialize()
+    end
 end
+
+TypeManager.validateTypes = Utils.prependedFunction(TypeManager.validateTypes, validateTypes)

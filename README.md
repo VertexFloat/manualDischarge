@@ -49,6 +49,7 @@
 
 Thanks to this modification, the harvesters and auger wagons are unloaded manually by pressing the appropriate button. In the game settings, you can enable/disable manual unloading for specific machines.
 <br/>
+<br/>
 Start overloading / stop overloading - 'i' key (default)
 
 <p align="right">&#x2191 <a href="#top">back to top</a></p>

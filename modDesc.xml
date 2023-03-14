@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8' standalone='no'?>
-<modDesc descVersion='72'>
+<modDesc descVersion='73'>
 	<author>VertexFloat</author>
-	<version>1.0.0.3</version>
+	<version>1.0.0.4</version>
 	<title>
 		<en>Manual Discharge</en>
 		<de>Manuelle Entladung</de>
@@ -34,6 +34,9 @@ Changelog (1.0.0.3) :
 - new game screenshots
 - new mod icon
 
+Changelog (1.0.0.4) :
+- descVersion updated
+
 For more information, help, and report issues please visit <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.
 ]]>
 </en>
@@ -60,6 +63,9 @@ For more information, help, and report issues please visit <a href='https://gith
 - neue Spiel-Screenshots
 - Neues Mod-Symbol
 
+Änderungsprotokoll (1.0.0.4) :
+- DescVersion aktualisiert
+
 Weitere Informationen, Hilfe und Probleme melden finden Sie unter <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.
 ]]>
 </de>
@@ -85,6 +91,9 @@ Dziennik zmian (1.0.0.3) :
 - aktualizacja descVersion
 - nowe zrzuty ekranu z gry
 - nowa ikona moda
+
+Dziennik zmian (1.0.0.4) :
+- zaktualizowano descVersion
 
 Po więcej informacji, pomoc lub zgłoszenie błędu, odwiedź stronę <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.
 ]]>

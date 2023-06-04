@@ -1,22 +1,24 @@
 -- @author: 4c65736975, All Rights Reserved
--- @version: 1.0.0.1, 11/02/2023
+-- @version: 1.0.0.2, 09|05|2023
 -- @filename: ManualPipeDischargeable.lua
 
--- Changelog (1.0.0.1) :
---
+-- Changelog (1.0.0.1):
 -- cleaned code
 -- fixed AI bug where they couldn't discharge
 -- fixed forage harvesters discharging
 -- moved some functions from ManualDischargeUtil.lua
 
+-- Changelog (1.0.0.2):
+-- cleaned and improved code
+-- added configuration
+-- the code responsible for the settings has been removed
+
+source(g_currentModDirectory .. 'src/vehicles/specializations/events/SetManualPipeDischargeStateEvent.lua')
+
 ManualPipeDischargeable = {
-	MANUAL_PIPE_DISCHARGEABLE_STATE_OFF = false,
-	MANUAL_PIPE_DISCHARGEABLE_STATE_ON = true,
-	SETTINGS = {
-		HARVESTERS = 'isHarvestersDischargeManually',
-		POTATOVEHICLES = 'isPotatoHarvestersDischargeManually',
-		BEETVEHICLES = 'isBeetHarvestersDischargeManually',
-		AUGERWAGONS = 'isAugerWagonsDischargeManually'
+	PIPE_DISCHARGE_STATE = {
+		OFF = false,
+		ON = true
 	}
 }
 
@@ -24,13 +26,14 @@ function ManualPipeDischargeable.prerequisitesPresent(specializations)
 	return SpecializationUtil.hasSpecialization(Pipe, specializations) and SpecializationUtil.hasSpecialization(Dischargeable, specializations)
 end
 
+function ManualPipeDischargeable.initSpecialization()
+	g_configurationManager:addConfigurationType('manualDischarge', g_i18n:getText('configuration_manualDischarge'), nil, nil, nil, nil, ConfigurationUtil.SELECTOR_MULTIOPTION)
+end
+
 function ManualPipeDischargeable.registerFunctions(vehicleType)
-	SpecializationUtil.registerFunction(vehicleType, 'getIsDischargeableManually', ManualPipeDischargeable.getIsDischargeableManually)
 	SpecializationUtil.registerFunction(vehicleType, 'setManualPipeDischargeState', ManualPipeDischargeable.setManualPipeDischargeState)
 	SpecializationUtil.registerFunction(vehicleType, 'getManualPipeDischargeState', ManualPipeDischargeable.getManualPipeDischargeState)
 	SpecializationUtil.registerFunction(vehicleType, 'getIsManualPipeDischargeToggleable', ManualPipeDischargeable.getIsManualPipeDischargeToggleable)
-	SpecializationUtil.registerFunction(vehicleType, 'getVehicleCategoryName', ManualPipeDischargeable.getVehicleCategoryName)
-	SpecializationUtil.registerFunction(vehicleType, 'getAttachedImplementCategoryName', ManualPipeDischargeable.getAttachedImplementCategoryName)
 end
 
 function ManualPipeDischargeable.registerOverwrittenFunctions(vehicleType)
@@ -50,13 +53,24 @@ function ManualPipeDischargeable:onLoad(savegame)
 	self.spec_manuallyPipeDischargeable = {}
 	local spec = self.spec_manuallyPipeDischargeable
 
-	if self.spec_pipe.automaticDischarge == false then
-		self.spec_pipe.automaticDischarge = true
+	spec.isManual = self.configurations.manualDischarge and self.configurations.manualDischarge > 1 or false
+
+	if spec.isManual then
+		if self.spec_pipe.automaticDischarge == false then
+			self.spec_pipe.automaticDischarge = true
+		end
+
+		spec.actionEvents = {}
+		spec.currentManualPipeDischargeState = ManualPipeDischargeable.PIPE_DISCHARGE_STATE.OFF
 	end
 
-	spec.actionEvents = {}
-
-	spec.currentManualPipeDischargeState = ManualPipeDischargeable.MANUAL_PIPE_DISCHARGEABLE_STATE_OFF
+	if not spec.isManual then
+		SpecializationUtil.removeEventListener(self, 'onUpdate', ManualPipeDischargeable)
+		SpecializationUtil.removeEventListener(self, 'onUpdateTick', ManualPipeDischargeable)
+		SpecializationUtil.removeEventListener(self, 'onRegisterActionEvents', ManualPipeDischargeable)
+		SpecializationUtil.removeEventListener(self, 'onReadStream', ManualPipeDischargeable)
+		SpecializationUtil.removeEventListener(self, 'onWriteStream', ManualPipeDischargeable)
+	end
 end
 
 function ManualPipeDischargeable:onReadStream(streamId, connection)
@@ -78,15 +92,13 @@ end
 function ManualPipeDischargeable:onUpdate(dt)
 	local spec = self.spec_manuallyPipeDischargeable
 
-	if (self:getIsAIActive() or not self:getIsDischargeableManually() or self.spec_pipe.autoAimingStates[self.spec_pipe.currentState]) then
-		if spec.currentManualPipeDischargeState == ManualPipeDischargeable.MANUAL_PIPE_DISCHARGEABLE_STATE_OFF then
-			self:setManualPipeDischargeState(ManualPipeDischargeable.MANUAL_PIPE_DISCHARGEABLE_STATE_ON)
+	if self:getIsAIActive() or self.spec_pipe.autoAimingStates[self.spec_pipe.currentState] then
+		if spec.currentManualPipeDischargeState == ManualPipeDischargeable.PIPE_DISCHARGE_STATE.OFF then
+			self:setManualPipeDischargeState(ManualPipeDischargeable.PIPE_DISCHARGE_STATE.ON)
 		end
-	else
-		if not self:getIsManualPipeDischargeToggleable() then
-			if spec.currentManualPipeDischargeState == ManualPipeDischargeable.MANUAL_PIPE_DISCHARGEABLE_STATE_ON then
-				self:setManualPipeDischargeState(ManualPipeDischargeable.MANUAL_PIPE_DISCHARGEABLE_STATE_OFF)
-			end
+	elseif not self:getIsManualPipeDischargeToggleable() then
+		if spec.currentManualPipeDischargeState == ManualPipeDischargeable.PIPE_DISCHARGE_STATE.ON then
+			self:setManualPipeDischargeState(ManualPipeDischargeable.PIPE_DISCHARGE_STATE.OFF)
 		end
 	end
 end
@@ -96,10 +108,8 @@ function ManualPipeDischargeable:onUpdateTick(dt)
 	local dischargeNode = self.spec_dischargeable.currentDischargeNode
 	local fillTypeIndex = self:getFillUnitFillType(dischargeNode.fillUnitIndex)
 
-	if self:getIsDischargeableManually() then
-		if self:getIsActiveForInput() and self:getIsManualPipeDischargeToggleable() then
-			g_manualDischarge:showPipeDischargeContext(fillTypeIndex)
-		end
+	if self:getIsActiveForInput() and self:getIsManualPipeDischargeToggleable() then
+		g_currentMission:showPipeDischargeContext(fillTypeIndex)
 	end
 
 	if self.isClient then
@@ -113,10 +123,10 @@ function ManualPipeDischargeable.updateActionEvents(self)
 	local isActive = false
 
 	if actionEvent ~= nil then
-		if self:getIsManualPipeDischargeToggleable() and self:getIsDischargeableManually() then
+		if self:getIsManualPipeDischargeToggleable() then
 			isActive = true
 
-			if spec.currentManualPipeDischargeState == ManualPipeDischargeable.MANUAL_PIPE_DISCHARGEABLE_STATE_OFF then
+			if spec.currentManualPipeDischargeState == ManualPipeDischargeable.PIPE_DISCHARGE_STATE.OFF then
 				g_inputBinding:setActionEventText(actionEvent.actionEventId, g_i18n:getText('action_startOverloading'))
 			else
 				g_inputBinding:setActionEventText(actionEvent.actionEventId, g_i18n:getText('action_stopOverloading'))
@@ -133,13 +143,11 @@ function ManualPipeDischargeable:onRegisterActionEvents(isActiveForInput, isActi
 
 		self:clearActionEventsTable(spec.actionEvents)
 
-		if isActiveForInputIgnoreSelection then
+		if isActiveForInput then
 			if self:getPipeDischargeNodeIndex() ~= nil then
 				local _, actionEventId = self:addPoweredActionEvent(spec.actionEvents, InputAction.TOGGLE_MANUAL_DISCHARGE_PIPE, self, ManualPipeDischargeable.actionEventManualDischargePipe, false, true, false, true, nil)
 
 				g_inputBinding:setActionEventTextPriority(actionEventId, GS_PRIO_VERY_HIGH)
-
-				ManualPipeDischargeable.updateActionEvents(self)
 			end
 		end
 	end
@@ -164,7 +172,7 @@ end
 function ManualPipeDischargeable:handleDischargeRaycast(superFunc, dischargeNode, hitObject, hitShape, hitDistance, hitFillUnitIndex, hitTerrain)
 	local spec = self.spec_manuallyPipeDischargeable
 
-	if self.spec_pipe.automaticDischarge then
+	if spec.isManual and self.spec_pipe.automaticDischarge then
 		local stopDischarge = false
 
 		if self:getIsPowered() and hitObject ~= nil then
@@ -172,7 +180,7 @@ function ManualPipeDischargeable:handleDischargeRaycast(superFunc, dischargeNode
 			local allowFillType = hitObject:getFillUnitAllowsFillType(hitFillUnitIndex, fillType)
 
 			if allowFillType and hitObject:getFillUnitFreeCapacity(hitFillUnitIndex, fillType, self:getOwnerFarmId()) > 0 then
-				if spec.currentManualPipeDischargeState == ManualPipeDischargeable.MANUAL_PIPE_DISCHARGEABLE_STATE_ON then
+				if spec.currentManualPipeDischargeState == ManualPipeDischargeable.PIPE_DISCHARGE_STATE.ON then
 					self:setDischargeState(Dischargeable.DISCHARGE_STATE_OBJECT, true)
 				else
 					stopDischarge = true
@@ -180,18 +188,14 @@ function ManualPipeDischargeable:handleDischargeRaycast(superFunc, dischargeNode
 			else
 				stopDischarge = true
 
-				if spec.currentManualPipeDischargeState == ManualPipeDischargeable.MANUAL_PIPE_DISCHARGEABLE_STATE_ON then
-					self:setManualPipeDischargeState(ManualPipeDischargeable.MANUAL_PIPE_DISCHARGEABLE_STATE_OFF)
+				if spec.currentManualPipeDischargeState == ManualPipeDischargeable.PIPE_DISCHARGE_STATE.ON then
+					self:setManualPipeDischargeState(ManualPipeDischargeable.PIPE_DISCHARGE_STATE.OFF)
 				end
 			end
 		elseif self:getIsPowered() and self.spec_pipe.toggleableDischargeToGround then
 			self:setDischargeState(Dischargeable.DISCHARGE_STATE_GROUND, true)
 		else
 			stopDischarge = true
-
-			if spec.currentManualPipeDischargeState == ManualPipeDischargeable.MANUAL_PIPE_DISCHARGEABLE_STATE_ON then
-				self:setManualPipeDischargeState(ManualPipeDischargeable.MANUAL_PIPE_DISCHARGEABLE_STATE_OFF)
-			end
 		end
 
 		if stopDischarge and self:getDischargeState() == Dischargeable.DISCHARGE_STATE_OBJECT then
@@ -234,42 +238,4 @@ function ManualPipeDischargeable:getIsManualPipeDischargeToggleable()
 	end
 
 	return true
-end
-
-function ManualPipeDischargeable:getIsDischargeableManually()
-	local spec = self.spec_manuallyPipeDischargeable
-	local vehicleCategoryName = self:getVehicleCategoryName(self.configFileName)
-	local implementCategoryName = self:getAttachedImplementCategoryName(self.configFileName)
-
-	if vehicleCategoryName ~= nil or implementCategoryName ~= nil then
-		for categoryName, settingName in pairs(ManualPipeDischargeable.SETTINGS) do
-			if categoryName == vehicleCategoryName or categoryName == implementCategoryName then
-				return g_manualDischarge:getManualDischargeableSettingState(settingName)
-			end
-		end
-	end
-
-	return false
-end
-
-function ManualPipeDischargeable:getVehicleCategoryName(configFileName)
-	return g_storeManager:getItemByXMLFilename(configFileName).categoryName
-end
-
-function ManualPipeDischargeable:getAttachedImplementCategoryName(configFileName)
-	for _, vehicle in pairs(g_currentMission.vehicles) do
-		if vehicle ~= nil then
-			if SpecializationUtil.hasSpecialization(AttacherJoints, vehicle.specializations) then
-				local attachedImplements = vehicle:getAttachedImplements()
-
-				if attachedImplements ~= nil then
-					for _, attachedImplement in pairs(attachedImplements) do
-						if attachedImplement.object.configFileName == configFileName then
-							return g_storeManager:getItemByXMLFilename(attachedImplement.object.configFileName).categoryName
-						end
-					end
-				end
-			end
-		end
-	end
 end

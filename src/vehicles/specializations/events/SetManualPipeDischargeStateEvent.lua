@@ -1,5 +1,5 @@
 -- @author: 4c65736975, All Rights Reserved
--- @version: 1.0.0.0, 11/07/2022
+-- @version: 1.0.0.0, 11|07|2022
 -- @filename: SetManualPipeDischargeStateEvent.lua
 
 SetManualPipeDischargeStateEvent = {}
@@ -35,10 +35,8 @@ function SetManualPipeDischargeStateEvent:writeStream(streamId, connection)
 end
 
 function SetManualPipeDischargeStateEvent:run(connection)
-	if self.vehicle ~= nil then
-		if self.vehicle ~= nil and self.vehicle:getIsSynchronized() then
-			self.vehicle:setManualPipeDischargeState(self.state, true)
-		end
+	if self.vehicle ~= nil and self.vehicle:getIsSynchronized() then
+		self.vehicle:setManualPipeDischargeState(self.state, true)
 	end
 
 	if not connection:getIsServer() then

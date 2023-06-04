@@ -1,32 +1,29 @@
 <?xml version='1.0' encoding='utf-8' standalone='no'?>
-<modDesc descVersion='73'>
+<modDesc descVersion='74'>
 	<author>VertexFloat</author>
-	<version>1.0.0.4</version>
+	<version>1.0.0.5</version>
 	<title>
 		<en>Manual Discharge</en>
 		<de>Manuelle Entladung</de>
+		<fr>Décharge Manuelle</fr>
 		<pl>Manualny Rozładunek</pl>
 	</title>
-	<iconFilename>icon.png</iconFilename>
-	<multiplayer supported='true'/>
-
 	<description>
-<en>
-<![CDATA[Thanks to this modification, the harvesters and auger wagons are unloaded manually by pressing the appropriate button. In the game settings, you can enable/disable manual unloading for specific machines.
+		<en><![CDATA[Thanks to this modification, all vehicles with pipe have a configuration where you can decide whether you want that vehicle to be unloaded manually or automatically.
 
-Start overloading / stop overloading - 'i' key (default)
+Start overloading/stop overloading - 'i' key (default)
 
-Changelog (1.0.0.1) :
+Changelog (1.0.0.1):
 - fixed compatibility with patch 1.4.1 and above
 - completely new, improved and cleaner code
 - descVersion updated
 - new mod icon
 
-Changelog (1.0.0.2) :
+Changelog (1.0.0.2):
 - fixed incompatibility with other mods settings
 - fixed lua errors on specific situations
 
-Changelog (1.0.0.3) :
+Changelog (1.0.0.3):
 - cleaned and improved code
 - fixed AI bug where they couldn't discharge
 - forage harvesters discharging fixed
@@ -34,28 +31,32 @@ Changelog (1.0.0.3) :
 - new game screenshots
 - new mod icon
 
-Changelog (1.0.0.4) :
+Changelog (1.0.0.4):
 - descVersion updated
 
-For more information, help, and report issues please visit <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.
-]]>
-</en>
-<de>
-<![CDATA[Dank dieser Modifikation werden Mähdrescher und Überladewagen manuell durch Drücken der entsprechenden Taste entladen. In den Spieleinstellungen können Sie das manuelle Entladen für bestimmte Maschinen aktivieren/deaktivieren.
+Changelog (1.0.0.5):
+- descVersion updated
+- new game screenshots
+- improved and cleaned code
+- removed 'ManualDischarge' settings
+- added new functionallity (from now on, all vehicles with a pipe have a configuration with which you can decide whether this particular vehicle is unloaded manually or not)
 
-Überladung starten / Überladung stoppen - Taste 'i' (Standard)
+For more information, help, and report issues please visit <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.]]></en>
+		<de><![CDATA[Dank dieser Modifikation haben alle Fahrzeuge mit Rohr eine Konfiguration, bei der Sie entscheiden können, ob dieses Fahrzeug manuell oder automatisch entladen werden soll.
 
-Änderungsprotokoll (1.0.0.1) :
+Überladung starten/Überladung stoppen - Taste 'i' (Standard)
+
+Änderungsprotokoll (1.0.0.1):
 - Kompatibilität mit Patch 1.4.1 und höher behoben
 - Komplett neuer, verbesserter und sauberer Code
 - DescVersion aktualisiert
 - Neues Mod-Symbol
 
-Änderungsprotokoll (1.0.0.2) :
+Änderungsprotokoll (1.0.0.2):
 - Inkompatibilität mit anderen Mods-Einstellungen behoben
 - Lua-Fehler in bestimmten Situationen behoben
 
-Änderungsprotokoll (1.0.0.3) :
+Änderungsprotokoll (1.0.0.3):
 - gesäuberter und verbesserter Code
 - KI-Fehler behoben, bei dem sie sich nicht entladen konnten
 - Entladen von Feldhäckslern behoben
@@ -63,28 +64,65 @@ For more information, help, and report issues please visit <a href='https://gith
 - neue Spiel-Screenshots
 - Neues Mod-Symbol
 
-Änderungsprotokoll (1.0.0.4) :
+Änderungsprotokoll (1.0.0.4):
 - DescVersion aktualisiert
 
-Weitere Informationen, Hilfe und Probleme melden finden Sie unter <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.
-]]>
-</de>
-<pl>
-<![CDATA[Dzięki tej modyfikacji wyładunek kombajnów i wozów przeładowczych odbywa się manualnie po przez wciśnięcie odpowiedniego klawisza. W ustawieniach gry, możesz włączyć/wyłączyć manualny rozładunek dla konkretnych maszyn.
+Änderungsprotokoll (1.0.0.5):
+- descVersion aktualisiert
+- neue Spiel-Screenshots
+- verbesserter und gesäuberter Code
+- 'ManualDischarge'-Einstellungen entfernt
+- neue Funktionalität hinzugefügt (ab sofort haben alle Fahrzeuge mit einem Rohr eine Konfiguration, mit der Sie entscheiden können, ob dieses bestimmte Fahrzeug manuell entladen wird oder nicht)
 
-Rozpocznij rozładunek / zatrzymaj rozładunek - klawisz 'i' (domyślnie)
+Weitere Informationen, Hilfe und Probleme melden finden Sie unter <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.]]></de>
+		<fr><![CDATA[Grâce à cette modification, tous les véhicules avec tuyau ont une configuration dans laquelle vous pouvez décider si vous souhaitez que ce véhicule soit déchargé manuellement ou automatiquement.
 
-Dziennik zmian (1.0.0.1) :
+Démarrer la surcharge/arrêter la surcharge - touche 'i' (par défaut)
+
+Journal des modifications (1.0.0.1):
+- compatibilité fixe avec le patch 1.4.1 et supérieur
+- code complètement nouveau, amélioré et plus propre
+- descriptionVersion mise à jour
+- nouvelle icône de module
+
+Journal des modifications (1.0.0.2):
+- incompatibilité fixe avec d'autres paramètres de mods
+- correction d'erreurs lua dans des situations spécifiques
+
+Journal des modifications (1.0.0.3):
+- code nettoyé et amélioré
+- bug AI fixe où ils ne pouvaient pas décharger
+- déchargement des ensileuses fixes
+- descriptionVersion mise à jour
+- nouvelles captures d'écran du jeu
+- nouvelle icône de module
+
+Journal des modifications (1.0.0.4):
+- descriptionVersion mise à jour
+
+Journal des modifications (1.0.0.5):
+- descriptionVersion mise à jour
+- nouvelles captures d'écran du jeu
+- code amélioré et nettoyé
+- suppression des paramètres 'ManualDischarge'
+- ajout d'une nouvelle fonctionnalité (à partir de maintenant, tous les véhicules avec un tuyau ont une configuration avec laquelle vous pouvez décider si ce véhicule particulier est déchargé manuellement ou non)
+
+Pour plus d'informations, de l'aide et signaler des problèmes, veuillez visiter <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.]]></fr>
+		<pl><![CDATA[Dzięki tej modyfikacji wszystkie pojazdy z rurą wyładowczą mają konfigurację, w której możesz zdecydować, czy chcesz, aby pojazd był rozładowywany ręcznie, czy automatycznie.
+
+Rozpocznij rozładunek/zatrzymaj rozładunek - klawisz 'i' (domyślnie)
+
+Dziennik zmian (1.0.0.1):
 - poprawiona kompatybilność z patchem 1.4.1 i nowszymi
 - zupełnie nowy, ulepszony i czystszy kod
 - zaktualizowano descVersion
 - nowa ikona modyfikacji
 
-Dziennik zmian (1.0.0.2) :
+Dziennik zmian (1.0.0.2):
 - naprawiono niezgodność z innymi ustawieniami modów
 - naprawiono błędy lua w specyficznych sytuacjach
 
-Dziennik zmian (1.0.0.3) :
+Dziennik zmian (1.0.0.3):
 - oczyszczony i poprawiony kod
 - naprawiono błąd AI, przez który nie mogli się wyładować
 - naprawiono rozładunek sieczkarni
@@ -92,85 +130,33 @@ Dziennik zmian (1.0.0.3) :
 - nowe zrzuty ekranu z gry
 - nowa ikona moda
 
-Dziennik zmian (1.0.0.4) :
+Dziennik zmian (1.0.0.4):
 - zaktualizowano descVersion
 
-Po więcej informacji, pomoc lub zgłoszenie błędu, odwiedź stronę <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.
-]]>
-</pl>
+Dziennik zmian (1.0.0.5):
+- zaktualizowano descVersion
+- nowe zrzuty ekranu z gry
+- ulepszony i oczyszczony kod
+- usunięto ustawienia „Ręcznego rozładowania”.
+- dodano nową funkcjonalność (od teraz wszystkie pojazdy z rurą mają konfigurację, za pomocą której można zdecydować, czy ten konkretny pojazd jest rozładowywany ręcznie, czy nie)
+
+Po więcej informacji, pomoc lub zgłoszenie błędu, odwiedź stronę <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.]]></pl>
 	</description>
+	<iconFilename>icon_manualDischarge.png</iconFilename>
+	<multiplayer supported='true'/>
 
 	<l10n>
 		<text name='input_TOGGLE_MANUAL_DISCHARGE_PIPE'>
 			<en>Dump</en>
 			<de>Abkippen</de>
-			<pl>Wyładuj</pl>
-			<br>Despejar</br>
-			<cs>倾倒</cs>
-			<ct>傾倒</ct>
-			<cz>Vykládka</cz>
-			<da>Hæld ud</da>
-			<ea>Verter</ea>
-			<es>Verter</es>
-			<fc>Décharger</fc>
-			<fi>Kaada</fi>
 			<fr>Décharger</fr>
-			<hu>Lerakás</hu>
-			<it>Scarica</it>
-			<jp>下ろす</jp>
-			<kr>내려놓기</kr>
-			<nl>Storten</nl>
-			<no>Dump</no>
-			<pt>Despejar</pt>
-			<ro>Descarcă</ro>
-			<ru>Выгрузить</ru>
-			<sv>Dumpa</sv>
-			<tr>Boşalt</tr>
+			<pl>Wyładuj</pl>
 		</text>
-		<text name='ui_header_manualDischarge'>
+		<text name='configuration_manualDischarge'>
 			<en>Manual Discharge</en>
 			<de>Manuelle Entladung</de>
+			<fr>Décharge Manuelle</fr>
 			<pl>Manualny Rozładunek</pl>
-		</text>
-		<text name='setting_manualDischargeHarvesters'>
-			<en>Harvesters</en>
-			<de>Mähdrescher</de>
-			<pl>Kombajny</pl>
-		</text>
-		<text name='setting_info_manualDischargeHarvesters'>
-			<en>Whether or not harvesters unloaded manually.</en>
-			<de>Ob die Erntemaschinen manuell entladen werden oder nicht.</de>
-			<pl>Czy kombajny rozładowywane są manualnie czy nie.</pl>
-		</text>
-		<text name='setting_manualDischargePotatoHarvesters'>
-			<en>Potato Harvesters</en>
-			<de>Kartoffelerntemaschinen</de>
-			<pl>Kombajny Ziemniaczane</pl>
-		</text>
-		<text name='setting_info_manualDischargePotatoHarvesters'>
-			<en>Whether or not potato harvesters unloaded manually.</en>
-			<de>Ob Kartoffelerntemaschinen manuell entladen werden oder nicht.</de>
-			<pl>Czy kombajny ziemniaczane rozładowywane są manualnie czy nie.</pl>
-		</text>
-		<text name='setting_manualDischargeBeetHarvesters'>
-			<en>Beet Harvesters</en>
-			<de>Rübenerntemaschinen</de>
-			<pl>Kombajny Buraczane</pl>
-		</text>
-		<text name='setting_info_manualDischargeBeetHarvesters'>
-			<en>Whether or not beet harvesters unloaded manually.</en>
-			<de>Ob Rübenerntemaschinen manuell entladen werden oder nicht.</de>
-			<pl>Czy kombajny buraczane rozładowywane są manualnie czy nie.</pl>
-		</text>
-		<text name='setting_manualDischargeAugerWagons'>
-			<en>Auger Wagons</en>
-			<de>Überladewagen</de>
-			<pl>Wozy Przeładowcze</pl>
-		</text>
-		<text name='setting_info_manualDischargeAugerWagons'>
-			<en>Whether or not auger wagons unloaded manually.</en>
-			<de>Ob Überladewagen manuell entladen werden oder nicht.</de>
-			<pl>Czy wozy przeładunkowe rozładowywane są manualnie czy nie.</pl>
 		</text>
 	</l10n>
 
@@ -185,7 +171,7 @@ Po więcej informacji, pomoc lub zgłoszenie błędu, odwiedź stronę <a href='
 	</inputBinding>
 
 	<actions>
-		<action name='TOGGLE_MANUAL_DISCHARGE_PIPE'/>
+		<action name='TOGGLE_MANUAL_DISCHARGE_PIPE' category='VEHICLE' axisType='HALF'/>
 	</actions>
 
 	<extraSourceFiles>

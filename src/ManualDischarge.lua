@@ -1,98 +1,123 @@
 -- @author: 4c65736975, All Rights Reserved
--- @version: 1.0.0.2, 11/02/2023
+-- @version: 1.0.0.3, 09|05|2023
 -- @filename: ManualDischarge.lua
 
--- Changelog (1.0.0.1) :
---
+-- Changelog (1.0.0.1):
 -- completly new, better and cleaner code
 -- merged functionality with 'main' file
 
--- Changelog (1.0.0.2) :
---
+-- Changelog (1.0.0.2):
 -- cleaned and improved code
 -- moved settings code to ManualDischargeSettings.lua
 
-ManualDischarge = {
-	MOD_DIRECTORY = g_currentModDirectory
-}
+-- Changelog (1.0.0.3):
+-- cleaned and improved code
+-- merged functionality with ManualDischargeHUD.lua
 
-source(ManualDischarge.MOD_DIRECTORY .. 'src/vehicles/specializations/events/SetManualPipeDischargeStateEvent.lua')
-source(ManualDischarge.MOD_DIRECTORY .. 'src/events/ManualDischargeSettingsEvent.lua')
-source(ManualDischarge.MOD_DIRECTORY .. 'src/misc/AdditionalSpecialization.lua')
-source(ManualDischarge.MOD_DIRECTORY .. 'src/gui/ManualDischargeSettings.lua')
-source(ManualDischarge.MOD_DIRECTORY .. 'src/gui/hud/ManualDischargeHUD.lua')
-source(ManualDischarge.MOD_DIRECTORY .. 'src/utils/ManualDischargeUtil.lua')
+local modDirectory = g_currentModDirectory
+local hudElements = Utils.getFilename('data/menu/hud/hud_elements.png', modDirectory)
 
-local ManualDischarge_mt = Class(ManualDischarge)
+source(modDirectory .. 'src/misc/AdditionalSpecialization.lua')
+source(modDirectory .. 'src/misc/AdditionalConfiguration.lua')
 
-function ManualDischarge.new(customMt)
-	local self = setmetatable({}, customMt or ManualDischarge_mt)
-
-	self.manualDischargeSettings = ManualDischargeSettings.new()
-
-	return self
-end
-
-function ManualDischarge:initialize()
-	ManualDischargeUtil.overwriteEnvTableElement('ContextActionDisplay', ManualDischargeHUD)
-
-	FSBaseMission.onConnectionFinishedLoading = Utils.appendedFunction(FSBaseMission.onConnectionFinishedLoading, ManualDischarge.onConnectionFinishedLoading)
-
-	self.manualDischargeSettings:initialize()
-end
-
-function ManualDischarge:showPipeDischargeContext(fillTypeIndex)
+FSBaseMission.showPipeDischargeContext = function (self, fillTypeIndex)
 	local fillType = g_fillTypeManager:getFillTypeByIndex(fillTypeIndex)
 
-	g_currentMission.hud.contextActionDisplay:setContext(InputAction.TOGGLE_MANUAL_DISCHARGE_PIPE, ContextActionDisplay.CONTEXT_ICON.PIPE_DISCHARGE, fillType.title, HUD.CONTEXT_PRIORITY.MEDIUM)
+	self.hud:showPipeDischargeContext(fillType.title)
 end
 
-function ManualDischarge:setManualDischargeableSettingState(name, state, noEventSend)
-	local setting = self.manualDischargeSettings.nameToSetting[name]
+HUD.showPipeDischargeContext = function (self, fillTypeName)
+	self.contextActionDisplay:setContext(InputAction.TOGGLE_MANUAL_DISCHARGE_PIPE, ContextActionDisplay.CONTEXT_ICON.PIPE_DISCHARGE, fillTypeName, HUD.CONTEXT_PRIORITY.MEDIUM)
+end
 
-	if setting ~= nil then
-		ManualDischargeSettingsEvent.sendEvent(noEventSend)
+local function createActionIcons(self, superFunc, hudAtlasPath, baseX, baseY)
+	local posX, posY = getNormalizedScreenValues(unpack(ContextActionDisplay.POSITION.CONTEXT_ICON))
+	local width, height = getNormalizedScreenValues(unpack(ContextActionDisplay.SIZE.CONTEXT_ICON))
+	local centerY = baseY + (self:getHeight() - height) * 0.5 + posY
 
-		if setting.state ~= state then
-			setting.state = state
+	for _, iconName in pairs(ContextActionDisplay.CONTEXT_ICON) do
+		local iconOverlay = Overlay.new(iconName == 'pipeDischarge' and hudElements or hudAtlasPath, baseX + posX, centerY, width, height)
+		local uvs = ContextActionDisplay.UV[iconName]
 
-			Logging.info("Manual Discharge Setting '%s': %s", setting.name, setting.state)
+		iconOverlay:setUVs(GuiUtils.getUVs(uvs))
+		iconOverlay:setColor(unpack(ContextActionDisplay.COLOR.CONTEXT_ICON))
+
+		local iconElement = HUDElement.new(iconOverlay)
+
+		iconElement:setVisible(false)
+
+		self.contextIconElements[iconName] = iconElement
+
+		self:addChild(iconElement)
+	end
+end
+
+local function setContext(self, superFunc, contextAction, contextIconName, targetText, priority, actionText)
+	if priority == nil then
+		priority = 0
+	end
+
+	self:resetContext()
+
+	if priority >= self.contextPriority and self.contextIconElements[contextIconName] ~= nil then
+		self.contextAction = contextAction
+		self.contextIconName = contextIconName
+		self.targetText = targetText
+		self.contextPriority = priority
+
+		local eventHelpElement = self.inputDisplayManager:getEventHelpElementForAction(self.contextAction)
+
+		self.contextEventHelpElement = eventHelpElement
+
+		if eventHelpElement ~= nil then
+			self.inputGlyphElement:setAction(contextAction)
+			self.actionText = utf8ToUpper(actionText or eventHelpElement.textRight or eventHelpElement.textLeft)
+
+			local targetTextWidth = getTextWidth(self.targetTextSize, self.targetText)
+
+			self.rightSideX = 0.5 - targetTextWidth * 0.5
+
+			local contextIconWidth = 0
+			local posX = self.rightSideX + self.contextIconOffsetX
+
+			for name, element in pairs(self.contextIconElements) do
+				element:setPosition(posX - element:getWidth(), nil)
+
+				if name == self.contextIconName then
+					contextIconWidth = element:getWidth()
+				end
+			end
+
+			posX = posX - contextIconWidth + self.inputIconOffsetX - contextIconWidth
+
+			self.inputGlyphElement:setPosition(posX, nil)
+		end
+
+		if not self:getVisible() then
+			self:setVisible(true, true)
 		end
 	end
-end
 
-function ManualDischarge:getManualDischargeableSettingState(setting)
-	if ManualDischargeUtil.getIsValidIndexName(setting) then
-		return self.manualDischargeSettings.nameToSetting[setting].state
+	for name, element in pairs(self.contextIconElements) do
+		element:setVisible(name == self.contextIconName)
 	end
 
-	return false
+	self.displayTime = ContextActionDisplay.MIN_DISPLAY_DURATION
 end
-
-function ManualDischarge:onConnectionFinishedLoading(connection)
-	connection:sendEvent(ManualDischargeSettingsEvent.new())
-end
-
-g_manualDischarge = ManualDischarge.new()
-
-addModEventListener(g_manualDischarge)
 
 local function validateTypes(self)
-	if self.typeName == 'vehicle' and g_manualDischarge ~= nil then
-		g_manualDischarge:initialize()
+	if self.typeName == 'vehicle' then
+		ContextActionDisplay.createActionIcons = Utils.overwrittenFunction(ContextActionDisplay.createActionIcons, createActionIcons)
+		ContextActionDisplay.setContext = Utils.overwrittenFunction(ContextActionDisplay.setContext, setContext)
 	end
 end
 
 TypeManager.validateTypes = Utils.prependedFunction(TypeManager.validateTypes, validateTypes)
 
-local function onStartMission()
-	if g_manualDischarge ~= nil then
-		for i = 1, #g_manualDischarge.manualDischargeSettings.settings do
-			local setting = g_manualDischarge.manualDischargeSettings.settings[i]
-
-			Logging.info("Manual Discharge Setting '%s': %s", setting.name, setting.state)
-		end
-	end
-end
-
-FSBaseMission.onStartMission = Utils.appendedFunction(FSBaseMission.onStartMission, onStartMission)
+ContextActionDisplay.CONTEXT_ICON.PIPE_DISCHARGE = 'pipeDischarge'
+ContextActionDisplay.UV[ContextActionDisplay.CONTEXT_ICON.PIPE_DISCHARGE] = {
+	0,
+	0,
+	48,
+	48
+}

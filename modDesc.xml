@@ -1,180 +1,96 @@
-<?xml version='1.0' encoding='utf-8' standalone='no'?>
-<modDesc descVersion='75'>
-	<author>VertexFloat</author>
-	<version>1.0.0.5</version>
-	<title>
-		<en>Manual Discharge</en>
-		<de>Manuelle Entladung</de>
-		<fr>Décharge Manuelle</fr>
-		<pl>Manualny Rozładunek</pl>
-	</title>
-	<description>
-		<en><![CDATA[Thanks to this modification, all vehicles with pipe have a configuration where you can decide whether you want that vehicle to be unloaded manually or automatically.
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="77">
+  <author>VertexFloat</author>
+  <version>1.0.0.6</version>
+  <title>
+    <en>Manual Discharge</en>
+    <de>Manuelle Entladung</de>
+    <fr>Décharge Manuelle</fr>
+    <pl>Manualny Rozładunek</pl>
+  </title>
+  <description>
+    <en><![CDATA[Thanks to this modification, all vehicles with pipe have a configuration where you can decide whether you want that vehicle to be unloaded manually or automatically.
 
-Start overloading/stop overloading - 'i' key (default)
+Start overloading/stop overloading - "i" key (default)
 
-Changelog (1.0.0.1):
-- fixed compatibility with patch 1.4.1 and above
-- completely new, improved and cleaner code
-- descVersion updated
-- new mod icon
-
-Changelog (1.0.0.2):
-- fixed incompatibility with other mods settings
-- fixed lua errors on specific situations
-
-Changelog (1.0.0.3):
-- cleaned and improved code
-- fixed AI bug where they couldn't discharge
-- forage harvesters discharging fixed
-- descVersion updated
-- new game screenshots
-- new mod icon
-
-Changelog (1.0.0.4):
-- descVersion updated
-
-Changelog (1.0.0.5):
-- descVersion updated
-- new game screenshots
+Changelog (1.0.0.6):
+- fixed a issue that caused the vehicle to remain turned on or turn on automatically when the unloading pipe was above the unloading site
+- fixed an issue that caused multiplayer game loading stuck at 99%
 - improved and cleaned code
-- removed 'ManualDischarge' settings
-- added new functionallity (from now on, all vehicles with a pipe have a configuration with which you can decide whether this particular vehicle is unloaded manually or not)
+- removed unnecessary code
+- descVersion updated
 
-For more information, help, and report issues please visit <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.]]></en>
-		<de><![CDATA[Dank dieser Modifikation haben alle Fahrzeuge mit Rohr eine Konfiguration, bei der Sie entscheiden können, ob dieses Fahrzeug manuell oder automatisch entladen werden soll.
+For more information, full changelog, help, and report issues please visit <a href="https://github.com/4c65736975/manualDischarge">GitHub</a>.]]></en>
+    <de><![CDATA[Dank dieser Modifikation haben alle Fahrzeuge mit Rohr eine Konfiguration, bei der Sie entscheiden können, ob dieses Fahrzeug manuell oder automatisch entladen werden soll.
 
-Überladung starten/Überladung stoppen - Taste 'i' (Standard)
+Überladung starten/Überladung stoppen - Taste "i" (Standard)
 
-Änderungsprotokoll (1.0.0.1):
-- Kompatibilität mit Patch 1.4.1 und höher behoben
-- Komplett neuer, verbesserter und sauberer Code
-- DescVersion aktualisiert
-- Neues Mod-Symbol
-
-Änderungsprotokoll (1.0.0.2):
-- Inkompatibilität mit anderen Mods-Einstellungen behoben
-- Lua-Fehler in bestimmten Situationen behoben
-
-Änderungsprotokoll (1.0.0.3):
-- gesäuberter und verbesserter Code
-- KI-Fehler behoben, bei dem sie sich nicht entladen konnten
-- Entladen von Feldhäckslern behoben
+Änderungsprotokoll (1.0.0.6):
+- Es wurde ein Problem behoben, das dazu führte, dass das Fahrzeug eingeschaltet blieb oder sich automatisch einschaltete, wenn sich das Entladerohr über der Entladestelle befand
+- Es wurde ein Problem behoben, das dazu führte, dass das Laden von Multiplayer-Spielen bei 99 % hängen blieb.
+- verbesserter und bereinigter Code
+- Unnötigen Code entfernt
 - descVersion aktualisiert
-- neue Spiel-Screenshots
-- Neues Mod-Symbol
 
-Änderungsprotokoll (1.0.0.4):
-- DescVersion aktualisiert
+Weitere Informationen, ein vollständiges Änderungsprotokoll, Hilfe und das Melden von Problemen finden Sie unter <a href="https://github.com/4c65736975/manualDischarge">GitHub</a>.]]></de>
+    <fr><![CDATA[Grâce à cette modification, tous les véhicules avec tuyau ont une configuration dans laquelle vous pouvez décider si vous souhaitez que ce véhicule soit déchargé manuellement ou automatiquement.
 
-Änderungsprotokoll (1.0.0.5):
-- descVersion aktualisiert
-- neue Spiel-Screenshots
-- verbesserter und gesäuberter Code
-- 'ManualDischarge'-Einstellungen entfernt
-- neue Funktionalität hinzugefügt (ab sofort haben alle Fahrzeuge mit einem Rohr eine Konfiguration, mit der Sie entscheiden können, ob dieses bestimmte Fahrzeug manuell entladen wird oder nicht)
+Démarrer la surcharge/arrêter la surcharge - touche "i" (par défaut)
 
-Weitere Informationen, Hilfe und Probleme melden finden Sie unter <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.]]></de>
-		<fr><![CDATA[Grâce à cette modification, tous les véhicules avec tuyau ont une configuration dans laquelle vous pouvez décider si vous souhaitez que ce véhicule soit déchargé manuellement ou automatiquement.
-
-Démarrer la surcharge/arrêter la surcharge - touche 'i' (par défaut)
-
-Journal des modifications (1.0.0.1):
-- compatibilité fixe avec le patch 1.4.1 et supérieur
-- code complètement nouveau, amélioré et plus propre
-- descriptionVersion mise à jour
-- nouvelle icône de module
-
-Journal des modifications (1.0.0.2):
-- incompatibilité fixe avec d'autres paramètres de mods
-- correction d'erreurs lua dans des situations spécifiques
-
-Journal des modifications (1.0.0.3):
-- code nettoyé et amélioré
-- bug AI fixe où ils ne pouvaient pas décharger
-- déchargement des ensileuses fixes
-- descriptionVersion mise à jour
-- nouvelles captures d'écran du jeu
-- nouvelle icône de module
-
-Journal des modifications (1.0.0.4):
-- descriptionVersion mise à jour
-
-Journal des modifications (1.0.0.5):
-- descriptionVersion mise à jour
-- nouvelles captures d'écran du jeu
+Journal des modifications (1.0.0.6):
+- correction d'un problème qui faisait que le véhicule restait allumé ou s'allumait automatiquement lorsque le tuyau de déchargement était au-dessus du site de déchargement
+- correction d'un problème qui bloquait le chargement du jeu multijoueur à 99 %
 - code amélioré et nettoyé
-- suppression des paramètres 'ManualDischarge'
-- ajout d'une nouvelle fonctionnalité (à partir de maintenant, tous les véhicules avec un tuyau ont une configuration avec laquelle vous pouvez décider si ce véhicule particulier est déchargé manuellement ou non)
+- supprimé le code inutile
+- descVersion mise à jour
 
-Pour plus d'informations, de l'aide et signaler des problèmes, veuillez visiter <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.]]></fr>
-		<pl><![CDATA[Dzięki tej modyfikacji wszystkie pojazdy z rurą wyładowczą mają konfigurację, w której możesz zdecydować, czy chcesz, aby pojazd był rozładowywany ręcznie, czy automatycznie.
+Pour plus d'informations, un journal des modifications complet, de l'aide et des problèmes de signalement, voir <a href="https://github.com/4c65736975/manualDischarge">GitHub</a>.]]></fr>
+    <pl><![CDATA[Dzięki tej modyfikacji wszystkie pojazdy z rurą wyładowczą mają konfigurację, w której możesz zdecydować, czy chcesz, aby pojazd był rozładowywany ręcznie, czy automatycznie.
 
-Rozpocznij rozładunek/zatrzymaj rozładunek - klawisz 'i' (domyślnie)
+Rozpocznij rozładunek/zatrzymaj rozładunek - klawisz "i" (domyślnie)
 
-Dziennik zmian (1.0.0.1):
-- poprawiona kompatybilność z patchem 1.4.1 i nowszymi
-- zupełnie nowy, ulepszony i czystszy kod
-- zaktualizowano descVersion
-- nowa ikona modyfikacji
-
-Dziennik zmian (1.0.0.2):
-- naprawiono niezgodność z innymi ustawieniami modów
-- naprawiono błędy lua w specyficznych sytuacjach
-
-Dziennik zmian (1.0.0.3):
-- oczyszczony i poprawiony kod
-- naprawiono błąd AI, przez który nie mogli się wyładować
-- naprawiono rozładunek sieczkarni
-- aktualizacja descVersion
-- nowe zrzuty ekranu z gry
-- nowa ikona moda
-
-Dziennik zmian (1.0.0.4):
+Dziennik zmian (1.0.0.6):
+- naprawiono błąd, który powodował, że pojazd pozostawał włączony lub włączał się automatycznie, gdy rura rozładowcza znajdowała się nad miejscem rozładunku
+- naprawiono błąd, który powodował, że ładowanie gry wieloosobowej zatrzymywało się na poziomie 99%
+- poprawiony i oczyszczony kod
+- usunięto niepotrzebny kod
 - zaktualizowano descVersion
 
-Dziennik zmian (1.0.0.5):
-- zaktualizowano descVersion
-- nowe zrzuty ekranu z gry
-- ulepszony i oczyszczony kod
-- usunięto ustawienia „Ręcznego rozładowania”.
-- dodano nową funkcjonalność (od teraz wszystkie pojazdy z rurą mają konfigurację, za pomocą której można zdecydować, czy ten konkretny pojazd jest rozładowywany ręcznie, czy nie)
+Po więcej informacji, pełny dziennik zmian, pomoc lub zgłoszenie błędu, odwiedź stronę <a href="https://github.com/4c65736975/manualDischarge">GitHub</a>.]]></pl>
+  </description>
+  <iconFilename>icon_manualDischarge.png</iconFilename>
+  <multiplayer supported="true"/>
 
-Po więcej informacji, pomoc lub zgłoszenie błędu, odwiedź stronę <a href='https://github.com/4c65736975/manualDischarge'>GitHub</a>.]]></pl>
-	</description>
-	<iconFilename>icon_manualDischarge.png</iconFilename>
-	<multiplayer supported='true'/>
+  <l10n>
+    <text name="input_TOGGLE_MANUAL_DISCHARGE_PIPE">
+      <en>Dump</en>
+      <de>Abkippen</de>
+      <fr>Décharger</fr>
+      <pl>Wyładuj</pl>
+    </text>
+    <text name="configuration_manualDischarge">
+      <en>Manual Discharge</en>
+      <de>Manuelle Entladung</de>
+      <fr>Décharge Manuelle</fr>
+      <pl>Manualny Rozładunek</pl>
+    </text>
+  </l10n>
 
-	<l10n>
-		<text name='input_TOGGLE_MANUAL_DISCHARGE_PIPE'>
-			<en>Dump</en>
-			<de>Abkippen</de>
-			<fr>Décharger</fr>
-			<pl>Wyładuj</pl>
-		</text>
-		<text name='configuration_manualDischarge'>
-			<en>Manual Discharge</en>
-			<de>Manuelle Entladung</de>
-			<fr>Décharge Manuelle</fr>
-			<pl>Manualny Rozładunek</pl>
-		</text>
-	</l10n>
+  <specializations>
+    <specialization name="manualPipeDischargeable" className="ManualPipeDischargeable" filename="src/vehicles/specializations/ManualPipeDischargeable.lua"/>
+  </specializations>
 
-	<specializations>
-		<specialization name='manualPipeDischargeable' className='ManualPipeDischargeable' filename='src/vehicles/specializations/ManualPipeDischargeable.lua'/>
-	</specializations>
+  <inputBinding>
+    <actionBinding action="TOGGLE_MANUAL_DISCHARGE_PIPE">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_i"/>
+    </actionBinding>
+  </inputBinding>
 
-	<inputBinding>
-		<actionBinding action='TOGGLE_MANUAL_DISCHARGE_PIPE'>
-			<binding device='KB_MOUSE_DEFAULT' input='KEY_i'/>
-		</actionBinding>
-	</inputBinding>
+  <actions>
+    <action name="TOGGLE_MANUAL_DISCHARGE_PIPE" category="VEHICLE" axisType="HALF"/>
+  </actions>
 
-	<actions>
-		<action name='TOGGLE_MANUAL_DISCHARGE_PIPE' category='VEHICLE' axisType='HALF'/>
-	</actions>
-
-	<extraSourceFiles>
-		<sourceFile filename='src/ManualDischarge.lua'/>
-	</extraSourceFiles>
+  <extraSourceFiles>
+    <sourceFile filename="src/main.lua"/>
+  </extraSourceFiles>
 </modDesc>

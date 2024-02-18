@@ -20,7 +20,7 @@ Changelog (1.0.0.6):
 - removed unnecessary code
 - descVersion updated
 
-For more information, full changelog, help, and report issues please visit <a href="https://github.com/4c65736975/manualDischarge">GitHub</a>.]]></en>
+For more information, full changelog, help, and report issues please visit <a href="https://github.com/VertexFloat/manualDischarge">GitHub</a>.]]></en>
     <de><![CDATA[Dank dieser Modifikation haben alle Fahrzeuge mit Rohr eine Konfiguration, bei der Sie entscheiden können, ob dieses Fahrzeug manuell oder automatisch entladen werden soll.
 
 Überladung starten/Überladung stoppen - Taste "i" (Standard)
@@ -32,7 +32,7 @@ For more information, full changelog, help, and report issues please visit <a hr
 - Unnötigen Code entfernt
 - descVersion aktualisiert
 
-Weitere Informationen, ein vollständiges Änderungsprotokoll, Hilfe und das Melden von Problemen finden Sie unter <a href="https://github.com/4c65736975/manualDischarge">GitHub</a>.]]></de>
+Weitere Informationen, ein vollständiges Änderungsprotokoll, Hilfe und das Melden von Problemen finden Sie unter <a href="https://github.com/VertexFloat/manualDischarge">GitHub</a>.]]></de>
     <fr><![CDATA[Grâce à cette modification, tous les véhicules avec tuyau ont une configuration dans laquelle vous pouvez décider si vous souhaitez que ce véhicule soit déchargé manuellement ou automatiquement.
 
 Démarrer la surcharge/arrêter la surcharge - touche "i" (par défaut)
@@ -44,7 +44,7 @@ Journal des modifications (1.0.0.6):
 - supprimé le code inutile
 - descVersion mise à jour
 
-Pour plus d'informations, un journal des modifications complet, de l'aide et des problèmes de signalement, voir <a href="https://github.com/4c65736975/manualDischarge">GitHub</a>.]]></fr>
+Pour plus d'informations, un journal des modifications complet, de l'aide et des problèmes de signalement, voir <a href="https://github.com/VertexFloat/manualDischarge">GitHub</a>.]]></fr>
     <pl><![CDATA[Dzięki tej modyfikacji wszystkie pojazdy z rurą wyładowczą mają konfigurację, w której możesz zdecydować, czy chcesz, aby pojazd był rozładowywany ręcznie, czy automatycznie.
 
 Rozpocznij rozładunek/zatrzymaj rozładunek - klawisz "i" (domyślnie)
@@ -56,7 +56,7 @@ Dziennik zmian (1.0.0.6):
 - usunięto niepotrzebny kod
 - zaktualizowano descVersion
 
-Po więcej informacji, pełny dziennik zmian, pomoc lub zgłoszenie błędu, odwiedź stronę <a href="https://github.com/4c65736975/manualDischarge">GitHub</a>.]]></pl>
+Po więcej informacji, pełny dziennik zmian, pomoc lub zgłoszenie błędu, odwiedź stronę <a href="https://github.com/VertexFloat/manualDischarge">GitHub</a>.]]></pl>
   </description>
   <iconFilename>icon_manualDischarge.png</iconFilename>
   <multiplayer supported="true"/>

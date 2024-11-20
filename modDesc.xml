@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="79">
+<modDesc descVersion="92" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://validation.gdn.giants-software.com/xml/fs25/modDesc.xsd">
   <author>VertexFloat</author>
-  <version>1.0.0.6</version>
+  <version>1.0.0.7</version>
   <title>
     <en>Manual Discharge</en>
     <de>Manuelle Entladung</de>
@@ -13,61 +13,39 @@
 
 Start overloading/stop overloading - "i" key (default)
 
-Changelog (1.0.0.6):
-- fixed a issue that caused the vehicle to remain turned on or turn on automatically when the unloading pipe was above the unloading site
-- fixed an issue that caused multiplayer game loading stuck at 99%
-- improved and cleaned code
-- removed unnecessary code
-- descVersion updated
+Changelog (1.0.0.7):
+- FS25 release
 
 For more information, full changelog, help, and report issues please visit <a href="https://github.com/VertexFloat/manualDischarge">GitHub</a>.]]></en>
     <de><![CDATA[Dank dieser Modifikation haben alle Fahrzeuge mit Rohr eine Konfiguration, bei der Sie entscheiden können, ob dieses Fahrzeug manuell oder automatisch entladen werden soll.
 
 Überladung starten/Überladung stoppen - Taste "i" (Standard)
 
-Änderungsprotokoll (1.0.0.6):
-- Es wurde ein Problem behoben, das dazu führte, dass das Fahrzeug eingeschaltet blieb oder sich automatisch einschaltete, wenn sich das Entladerohr über der Entladestelle befand
-- Es wurde ein Problem behoben, das dazu führte, dass das Laden von Multiplayer-Spielen bei 99 % hängen blieb.
-- verbesserter und bereinigter Code
-- Unnötigen Code entfernt
-- descVersion aktualisiert
+Änderungsprotokoll (1.0.0.7):
+- FS25-Version
 
 Weitere Informationen, ein vollständiges Änderungsprotokoll, Hilfe und das Melden von Problemen finden Sie unter <a href="https://github.com/VertexFloat/manualDischarge">GitHub</a>.]]></de>
     <fr><![CDATA[Grâce à cette modification, tous les véhicules avec tuyau ont une configuration dans laquelle vous pouvez décider si vous souhaitez que ce véhicule soit déchargé manuellement ou automatiquement.
 
 Démarrer la surcharge/arrêter la surcharge - touche "i" (par défaut)
 
-Journal des modifications (1.0.0.6):
-- correction d'un problème qui faisait que le véhicule restait allumé ou s'allumait automatiquement lorsque le tuyau de déchargement était au-dessus du site de déchargement
-- correction d'un problème qui bloquait le chargement du jeu multijoueur à 99 %
-- code amélioré et nettoyé
-- supprimé le code inutile
-- descVersion mise à jour
+Journal des modifications (1.0.0.7):
+- Sortie de FS25
 
 Pour plus d'informations, un journal des modifications complet, de l'aide et des problèmes de signalement, voir <a href="https://github.com/VertexFloat/manualDischarge">GitHub</a>.]]></fr>
     <pl><![CDATA[Dzięki tej modyfikacji wszystkie pojazdy z rurą wyładowczą mają konfigurację, w której możesz zdecydować, czy chcesz, aby pojazd był rozładowywany ręcznie, czy automatycznie.
 
 Rozpocznij rozładunek/zatrzymaj rozładunek - klawisz "i" (domyślnie)
 
-Dziennik zmian (1.0.0.6):
-- naprawiono błąd, który powodował, że pojazd pozostawał włączony lub włączał się automatycznie, gdy rura rozładowcza znajdowała się nad miejscem rozładunku
-- naprawiono błąd, który powodował, że ładowanie gry wieloosobowej zatrzymywało się na poziomie 99%
-- poprawiony i oczyszczony kod
-- usunięto niepotrzebny kod
-- zaktualizowano descVersion
+Dziennik zmian (1.0.0.7):
+- Wydanie FS25
 
 Po więcej informacji, pełny dziennik zmian, pomoc lub zgłoszenie błędu, odwiedź stronę <a href="https://github.com/VertexFloat/manualDischarge">GitHub</a>.]]></pl>
   </description>
-  <iconFilename>icon_manualDischarge.png</iconFilename>
+  <iconFilename>icon_manualDischarge.dds</iconFilename>
   <multiplayer supported="true"/>
 
   <l10n>
-    <text name="input_TOGGLE_MANUAL_DISCHARGE_PIPE">
-      <en>Dump</en>
-      <de>Abkippen</de>
-      <fr>Décharger</fr>
-      <pl>Wyładuj</pl>
-    </text>
     <text name="configuration_manualDischarge">
       <en>Manual Discharge</en>
       <de>Manuelle Entladung</de>
@@ -79,16 +57,6 @@ Po więcej informacji, pełny dziennik zmian, pomoc lub zgłoszenie błędu, odw
   <specializations>
     <specialization name="manualPipeDischargeable" className="ManualPipeDischargeable" filename="src/vehicles/specializations/ManualPipeDischargeable.lua"/>
   </specializations>
-
-  <inputBinding>
-    <actionBinding action="TOGGLE_MANUAL_DISCHARGE_PIPE">
-      <binding device="KB_MOUSE_DEFAULT" input="KEY_i"/>
-    </actionBinding>
-  </inputBinding>
-
-  <actions>
-    <action name="TOGGLE_MANUAL_DISCHARGE_PIPE" category="VEHICLE" axisType="HALF"/>
-  </actions>
 
   <extraSourceFiles>
     <sourceFile filename="src/main.lua"/>

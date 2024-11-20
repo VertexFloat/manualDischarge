@@ -10,14 +10,16 @@
 local MOD_NAME = g_currentModName
 
 local function finalizeTypes(self)
-  if self.typeName == "vehicle" then
-    for typeName, typeEntry in pairs(self:getTypes()) do
-      if SpecializationUtil.hasSpecialization(Pipe, typeEntry.specializations) then
-        local specialization = MOD_NAME .. ".manualPipeDischargeable"
+  if not self.typeName == "vehicle" then
+    return
+  end
 
-        if not SpecializationUtil.hasSpecialization(specialization, typeEntry.specializations) then
-          self:addSpecialization(typeName, specialization)
-        end
+  for typeName, typeEntry in pairs(self:getTypes()) do
+    if SpecializationUtil.hasSpecialization(Pipe, typeEntry.specializations) then
+      local specialization = MOD_NAME .. ".manualPipeDischargeable"
+
+      if not SpecializationUtil.hasSpecialization(specialization, typeEntry.specializations) then
+        self:addSpecialization(typeName, specialization)
       end
     end
   end

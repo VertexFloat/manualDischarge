@@ -7,6 +7,7 @@
     <de>Manuelle Entladung</de>
     <fr>Décharge Manuelle</fr>
     <pl>Manualny Rozładunek</pl>
+	<tr>Manuel Boşaltma</tr>
   </title>
   <description>
     <en><![CDATA[Thanks to this modification, all vehicles with pipe have a configuration where you can decide whether you want that vehicle to be unloaded manually or automatically.
@@ -51,6 +52,7 @@ Po więcej informacji, pełny dziennik zmian, pomoc lub zgłoszenie błędu, odw
       <de>Manuelle Entladung</de>
       <fr>Décharge Manuelle</fr>
       <pl>Manualny Rozładunek</pl>
+	  <tr>Manuel Boşaltma</tr>
     </text>
   </l10n>
 

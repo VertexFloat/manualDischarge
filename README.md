@@ -38,24 +38,6 @@ If you want to install latest official version, you can [download](https://www.f
 - [Farming Simulator 25 (PC)](https://www.farming-simulator.com/buy-now.php?platform=pc&code=VertexFloat)
 - [Farming Simulator 25 (PC-Download)](https://www.farming-simulator.com/buy-now.php?platform=pcdigital&code=VertexFloat)
 
-### Installation
-
-#### Method 1:
-
-1. `git clone https://github.com/VertexFloat/manualDischarge`
-2. Open the cloned folder.
-3. Run `modInstaller.exe`.
-
-If everything went as expected, you can delete the cloned folder. Run the game and have a nice time!
-
-#### Method 2:
-
-1. Click the `Code` button and download the ZIP file.
-2. Extract the downloaded file.
-3. Run `modInstaller.exe`.
-
-If everything went as expected, you can delete the extracted folder and the ZIP file. Run the game and have a nice time!
-
 <p align="right">&#x2191 <a href="#top">back to top</a></p>
 
 ## Usage

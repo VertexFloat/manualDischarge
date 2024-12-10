@@ -14,7 +14,7 @@ function ManualPipeDischargeable.prerequisitesPresent(specializations)
 end
 
 function ManualPipeDischargeable.initSpecialization()
-  g_vehicleConfigurationManager:addConfigurationType("manualDischarge", g_i18n:getText("configuration_manualDischarge"), nil, VehicleConfigurationItem)
+  g_vehicleConfigurationManager:addConfigurationType("manualDischarge", g_i18n:getText("configuration_manualDischarge"), "manualDischarge", VehicleConfigurationItem)
 end
 
 function ManualPipeDischargeable.registerEventListeners(vehicleType)

@@ -1,0 +1,8 @@
+<vehicle>
+  <manualDischarge>
+    <manualDischargeConfigurations isYesNoOption="true">
+      <manualDischargeConfiguration name="$l10n_configuration_valueNo" price="0"/>
+      <manualDischargeConfiguration name="$l10n_configuration_valueYes" price="0"/>
+    </manualDischargeConfigurations>
+  </manualDischarge>
+</vehicle>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="92" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://validation.gdn.giants-software.com/xml/fs25/modDesc.xsd">
+<modDesc descVersion="93" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://validation.gdn.giants-software.com/xml/fs25/modDesc.xsd">
   <author>VertexFloat</author>
-  <version>1.0.0.7</version>
+  <version>1.0.0.8</version>
   <title>
     <en>Manual Discharge</en>
     <de>Manuelle Entladung</de>
@@ -13,32 +13,32 @@
 
 Start overloading/stop overloading - "i" key (default)
 
-Changelog (1.0.0.7):
-- FS25 release
+Changelog (1.0.0.8):
+- fixed saving issue
 
 For more information, full changelog, help, and report issues please visit <a href="https://github.com/VertexFloat/manualDischarge">GitHub</a>.]]></en>
     <de><![CDATA[Dank dieser Modifikation haben alle Fahrzeuge mit Rohr eine Konfiguration, bei der Sie entscheiden können, ob dieses Fahrzeug manuell oder automatisch entladen werden soll.
 
 Überladung starten/Überladung stoppen - Taste "i" (Standard)
 
-Änderungsprotokoll (1.0.0.7):
-- FS25-Version
+Änderungsprotokoll (1.0.0.8):
+- Speicherproblem behoben
 
 Weitere Informationen, ein vollständiges Änderungsprotokoll, Hilfe und das Melden von Problemen finden Sie unter <a href="https://github.com/VertexFloat/manualDischarge">GitHub</a>.]]></de>
     <fr><![CDATA[Grâce à cette modification, tous les véhicules avec tuyau ont une configuration dans laquelle vous pouvez décider si vous souhaitez que ce véhicule soit déchargé manuellement ou automatiquement.
 
 Démarrer la surcharge/arrêter la surcharge - touche "i" (par défaut)
 
-Journal des modifications (1.0.0.7):
-- Sortie de FS25
+Journal des modifications (1.0.0.8):
+- problème de sauvegarde résolu
 
 Pour plus d'informations, un journal des modifications complet, de l'aide et des problèmes de signalement, voir <a href="https://github.com/VertexFloat/manualDischarge">GitHub</a>.]]></fr>
     <pl><![CDATA[Dzięki tej modyfikacji wszystkie pojazdy z rurą wyładowczą mają konfigurację, w której możesz zdecydować, czy chcesz, aby pojazd był rozładowywany ręcznie, czy automatycznie.
 
 Rozpocznij rozładunek/zatrzymaj rozładunek - klawisz "i" (domyślnie)
 
-Dziennik zmian (1.0.0.7):
-- Wydanie FS25
+Dziennik zmian (1.0.0.8):
+- naprawiono problem z zapisywaniem
 
 Po więcej informacji, pełny dziennik zmian, pomoc lub zgłoszenie błędu, odwiedź stronę <a href="https://github.com/VertexFloat/manualDischarge">GitHub</a>.]]></pl>
   </description>

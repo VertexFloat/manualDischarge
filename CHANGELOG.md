@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.0.8
+
+Fix:
+- fixed saving issue
+
 ## 1.0.0.7
 
 Features:
